@@ -1,0 +1,13 @@
+id,type,title,description,skills,suggested_courses
+1,Job,"Junior Software Engineer","Develops and maintains web applications using modern frameworks. Works in an agile team to deliver high-quality code.","Python;Java;Git;SQL;AWS","CS101;CS240;CS361"
+2,Job,"Entry-Level Data Analyst","Analyzes data to find actionable insights. Creates dashboards and reports for business stakeholders.","Python;SQL;Excel;Tableau;Statistics","CS101;STAT201;MKTG300"
+3,Job,"Associate Product Manager","Works with engineering and design teams to define product features. Gathers user feedback and manages the product backlog.","Communication;JIRA;SQL;Market Research","MKTG300;COMM150"
+4,Job,"Cloud Support Associate","Helps customers solve technical problems with cloud services. Troubleshoots issues related to networking and infrastructure.","AWS;Linux;Networking;Customer Service","CS361;IT210"
+5,Job,"UX/UI Design Intern","Creates wireframes, mockups, and prototypes for new digital products. Conducts user research and usability testing.","Figma;User Research;Prototyping;Adobe XD","ART250;PSYC101"
+6,Job,"Machine Learning Engineer","Builds and deploys machine learning models. Works with large datasets and advanced algorithms to solve complex problems.","Python;TensorFlow;PyTorch;Scikit-learn;SQL;Docker","CS470;MATH310;CS101"
+7,Course,"CS101","Introduction to Programming","Python;Problem Solving"
+8,Course,"CS240","Data Structures & Algorithms","Java;Algorithms;Data Structures"
+9,Course,"CS361","Cloud Computing","AWS;Docker;Networking"
+10,Course,"STAT201","Intro to Statistics","Statistics;R"
+11,Course,"ART250","Digital Design Fundamentals","Figma;Adobe XD"
+12,Course,"CS470","Applied Machine Learning","TensorFlow;PyTorch;Scikit-learn"

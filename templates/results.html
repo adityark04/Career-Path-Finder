@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Recommended Path</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your AI-Powered Recommendations</h1>
+        <p class="summary">Based on your skills: <strong>{{ user_skills }}</strong></p>
+
+        {% if jobs %}
+            {% for job in jobs %}
+            <div class="job-card">
+                <h2>{{ job.title }} <span class="score">(Match: {{ job.similarity_score }})</span></h2>
+                <p>{{ job.description }}</p>
+                <div class="skills">
+                    <strong>Required Skills:</strong> {{ job.skills.replace(';', ', ') }}
+                </div>
+                
+                {% if job.skills_to_learn %}
+                <div class="skills-gap">
+                    <strong>💡 Skills to Learn Next:</strong> {{ job.skills_to_learn|join(', ') }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No matches found. Try being more descriptive with your skills!</p>
+        {% endif %}
+
+        <a href="/" class="back-link">← Try Again</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder - AI Career Roadmap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Pathfinder 🚀</h1>
+        <p>Enter your skills (comma-separated) to discover your future career path.</p>
+        <form action="/recommend" method="POST">
+            <textarea name="skills" rows="4" placeholder="e.g., Python, SQL, Communication, Figma"></textarea>
+            <button type="submit">Find My Path</button>
+        </form>
+    </div>
+</body>
+</html>

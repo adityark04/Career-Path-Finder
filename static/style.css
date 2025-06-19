@@ -1,0 +1,123 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+h1 + p {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dfe6e9;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.job-card {
+    background-color: #fdfdfd;
+    border: 1px solid #ecf0f1;
+    border-left: 5px solid #3498db;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.job-card h2 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.skills {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.skills strong {
+    color: #34495e;
+}
+
+.skills-gap {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #3498db;
+}
+.score {
+    font-size: 16px;
+    color: #27ae60;
+    font-weight: normal;
+    float: right;
+}
+
+.skills-gap {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #eafaf1;
+    border-radius: 6px;
+    border-left: 4px solid #2ecc71;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+.summary {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+}
