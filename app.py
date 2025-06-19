@@ -17,30 +17,34 @@ jobs_df = embedding_data['jobs_df']
 print("AI Model and embeddings loaded successfully.")
 
 # --- AI-Powered Recommendation Function ---
+# --- AI-Powered Recommendation Function (More Robust) ---
+# --- AI-Powered Recommendation Function (with Normalized Score) ---
 def recommend_jobs_ai(user_skills):
     """Recommends jobs based on semantic similarity using embeddings."""
+    if model is None:
+        return []
+
     user_embedding = model.encode(user_skills, convert_to_tensor=True)
     cosine_scores = util.cos_sim(user_embedding, job_embeddings)
-    top_results = torch.topk(cosine_scores, k=min(5, len(jobs_df)))
+    top_results = torch.topk(cosine_scores, k=min(10, len(jobs_df)))
     
     recommendations = []
-    user_skills_set = set([skill.strip().lower() for skill in user_skills.split(',')])
-
+    
     for score, idx_tensor in zip(top_results[0][0], top_results[1][0]):
-        # Convert the PyTorch tensor 'idx_tensor' to a standard Python integer
         idx = idx_tensor.item()
-        
-        # Now, use the integer 'idx' to index the DataFrame
         job_details = jobs_df.iloc[idx].to_dict()
         
-        # The score is also a tensor, so we use .item() on it as well
-        job_details['similarity_score'] = f"{score.item()*100:.2f}%"
+        # --- THIS IS THE FIX ---
+        # Get the raw cosine similarity score (-1 to 1)
+        original_score = score.item()
+        # Normalize it to a 0-100 scale to be more user-friendly
+        normalized_score = ((original_score + 1) / 2) * 100
+        job_details['similarity_score'] = f"{normalized_score:.2f}"
+        # --------------------
         
-        # --- SKILLS GAP ANALYSIS (Corrected Logic) ---
-        job_skills_set = set([s.strip().lower() for s in job_details['skills'].split(';')])
-        skills_to_learn = job_skills_set - user_skills_set
-        job_details['skills_to_learn'] = sorted(list(skills_to_learn))
-        
+        # This structure is kept for if you ever add an explicit skills column back
+        job_details['skills_to_learn'] = []
+
         recommendations.append(job_details)
         
     return recommendations
