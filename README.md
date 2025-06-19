@@ -32,32 +32,34 @@ This project was built from scratch as a practical application of Natural Langua
 
 ---
 
-## 🚀 How to Run Locally
-
-Follow these steps to set up and run the project on your local machine.
 
 
-### 1. Clone the Repository
+## 🚀 Installation & Launch
+
+To get the project running, execute the following commands in your terminal in order:
 
 ```bash
+# 1. Clone the repository and navigate into it
 git clone https://github.com/your-username/pathfinder-project.git
 cd pathfinder-project
 
-### 2. Set Up a Virtual Environment
-
+# 2. Create and activate a Python virtual environment
 python -m venv venv
-# Activate it
-# On Windows:
-venv\Scripts\
+# For Windows:
+venv\Scripts\activate
+# For macOS/Linux:
+# source venv/bin/activate
 
-### 3. Install Dependencies
+# 3. Install all necessary packages
 python -m pip install -r requirements.txt
 
-### 4. Run the Data Pipeline
+# 4. Run the data pipeline to fetch jobs and create AI models
+# This part may take a few minutes to complete
 python -m scrapers.main_scraper
 python generate_embeddings.py
 
-### 5. Run the App
+# 5. Launch the Flask web application
 python app.py
 
-### 6. Open the http link in the terminal on the browser
+# 6. Once the server is running, open your browser and go to:
+# http://127.0.0.1:5000
