@@ -2,42 +2,38 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 import pickle
 
-# --- Configuration ---
-SOURCE_DATA_FILE = "data/scraped_jobs_aggregated.csv"
-OUTPUT_EMBEDDING_FILE = "data/job_embeddings.pkl"
+JOBS_SOURCE_FILE = "data/scraped_jobs_aggregated.csv"
+COURSES_SOURCE_FILE = "data/mock_courses.csv"
+JOBS_OUTPUT_FILE = "data/job_embeddings.pkl"
+COURSES_OUTPUT_FILE = "data/course_embeddings.pkl"
 
-print("Loading pre-trained sentence-transformer model...")
-model = SentenceTransformer('all-MiniLM-L6-v2')
+def generate_embeddings(model, source_file, output_file, profile_type):
+    print(f"\n--- Generating Embeddings for: {profile_type} ---")
+    try:
+        df = pd.read_csv(source_file)
+    except FileNotFoundError:
+        print(f"Error: Source file not found at {source_file}. Skipping.")
+        return
 
-print(f"Loading data from {SOURCE_DATA_FILE}...")
-try:
-    df = pd.read_csv(SOURCE_DATA_FILE)
-except FileNotFoundError:
-    print(f"Error: The source data file was not found: {SOURCE_DATA_FILE}")
-    print("Please run the scraper script first (`python simple_scraper.py`)")
-    exit()
+    if profile_type == 'Jobs':
+        df['profile'] = df['title'].fillna('') + ". " + df['company'].fillna('') + ". " + df['description'].fillna('')
+    elif profile_type == 'Courses':
+        df['skills_taught'] = df['skills_taught'].fillna('')
+        df['profile'] = df['title'].fillna('') + ". Skills taught: " + df['skills_taught']
+    
+    profiles = df['profile'].tolist()
+    print(f"Found {len(profiles)} {profile_type.lower()} to process.")
+    embeddings = model.encode(profiles, show_progress_bar=True)
 
-# --- THIS IS THE FIX ---
-# Ensure the 'skills' column contains strings, replacing empty (NaN) values with an empty string.
-df['skills'] = df['skills'].fillna('')
-# --------------------
+    embedding_data = {'embeddings': embeddings, 'df': df}
+    with open(output_file, 'wb') as f: pickle.dump(embedding_data, f)
+    print(f"Success! {profile_type} embeddings saved to {output_file}")
 
-# The AI will infer skills from the job title, company, and description
-df['profile'] = df['title'].fillna('') + ". " + df['company'].fillna('') + ". " + df['description'].fillna('')
-job_profiles = df['profile'].tolist()
+def main():
+    print("Loading pre-trained sentence-transformer model...")
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    generate_embeddings(model, JOBS_SOURCE_FILE, JOBS_OUTPUT_FILE, 'Jobs')
+    generate_embeddings(model, COURSES_SOURCE_FILE, COURSES_OUTPUT_FILE, 'Courses')
 
-print(f"Found {len(job_profiles)} job profiles to process.")
-print("Generating AI embeddings... (This may take a moment)")
-job_embeddings = model.encode(job_profiles, show_progress_bar=True)
-
-print("Embeddings generated successfully.")
-
-embedding_data = {
-    'embeddings': job_embeddings,
-    'jobs_df': df
-}
-
-with open(OUTPUT_EMBEDDING_FILE, 'wb') as f:
-    pickle.dump(embedding_data, f)
-
-print(f"Success! Embeddings and job data have been saved to {OUTPUT_EMBEDDING_FILE}")
+if __name__ == "__main__":
+    main()

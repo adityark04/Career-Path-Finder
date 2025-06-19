@@ -5,3 +5,5 @@ sentence-transformers
 torch
 requests
 beautifulsoup4
+selenium
+webdriver-manager
