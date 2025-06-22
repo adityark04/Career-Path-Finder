@@ -38,6 +38,12 @@ This project was built from scratch as a practical application of Natural Langua
 
 To get the project running, execute the following commands in your terminal in order:
 
+## 🚀 How to Run Locally
+
+This project now includes a database for user accounts. The setup is slightly different and involves a one-time database initialization.
+
+### First-Time Setup (Do this only once)
+
 ```bash
 # 1. Clone the repository and navigate into it
 git clone https://github.com/your-username/pathfinder-project.git
@@ -50,16 +56,16 @@ venv\Scripts\activate
 # For macOS/Linux:
 # source venv/bin/activate
 
-# 3. Install all necessary packages
+# 3. Install all necessary packages from the requirements file
 python -m pip install -r requirements.txt
 
-# 4. Run the data pipeline to fetch jobs and create AI models
-# This part may take a few minutes to complete
+# 4. Initialize the Database (CRITICAL - ONE TIME ONLY)
+python init_db.py
+
+#5
 python -m scrapers.main_scraper
 python generate_embeddings.py
 
-# 5. Launch the Flask web application
+# 6. Launch the Flask Web Application
 python app.py
 
-# 6. Once the server is running, open your browser and go to:
-# http://127.0.0.1:5000
