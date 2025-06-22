@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %}Your Profile{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-person-circle text-primary me-2"></i>{{ user.username }}'s Profile</h1>
+    <a href="{{ url_for('edit_profile') }}" class="btn btn-secondary"><i class="bi bi-pencil-square"></i> Edit Profile</a>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header"><strong>My Details</strong></div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Full Name:</strong> {{ user.full_name or 'Not set' }}</li>
+                <li class="list-group-item"><strong>Age:</strong> {{ user.age or 'Not set' }}</li>
+                <li class="list-group-item"><strong>City:</strong> {{ user.city or 'Not set' }}</li>
+            </ul>
+        </div>
+        <div class="card mt-4">
+            <div class="card-header"><strong>My Education</strong></div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>College:</strong> {{ user.college or 'Not set' }}</li>
+                <li class="list-group-item"><strong>Degree:</strong> {{ user.degree or 'Not set' }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong>My Skills</strong></div>
+            <div class="card-body">
+                {% if user.skills %}
+                    {% for skill in user.skills.split(',') %}
+                        <span class="badge bg-primary fs-6 me-1 mb-1">{{ skill.strip() }}</span>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No skills listed yet. Edit your profile to add some!</p>
+                {% endif %}
+            </div>
+        </div>
+        <h3 class="mt-4">My Saved Jobs</h3>
+        <div class="list-group">
+            {% for job in saved_jobs %}
+                <a href="{{ job.job_link }}" class="list-group-item list-group-item-action" target="_blank">
+                    <h5 class="mb-1">{{ job.job_title }}</h5>
+                    <p class="mb-1 text-muted">{{ job.job_company }} - {{ job.job_location }}</p>
+                </a>
+            {% else %}
+                <p>You haven't saved any jobs yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
